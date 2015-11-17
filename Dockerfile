@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
-RUN sed -i /ServerName www.example.com/a SetEnvIfNoCase X-FORWARDED-PROTO "^https$" HTTPS /etc/apache2/sites-enabled/000-default.conf
+RUN sed -i '/ServerName www.example.com/a SetEnvIfNoCase X-FORWARDED-PROTO "^https$" HTTPS' /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
 ADD wp-config.php /app/wp-config.php
 ADD run.sh /run.sh
